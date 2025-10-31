@@ -1,121 +1,146 @@
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { Layout, Menu, Typography, Button } from 'antd'
+import { 
+  UnorderedListOutlined, 
+  AppstoreOutlined, 
+  SettingOutlined, 
+  BarChartOutlined, 
+  UserOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined
+} from '@ant-design/icons'
 import './App.css'
+import TodoList from './components/TodoList'
 
-// 定义Todo项的接口
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-  createdAt: number;
-  completedAt: number | null;
-}
+const { Header, Sider, Content, Footer } = Layout;
+const { Title, Text } = Typography;
 
 function App() {
   // 状态管理
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    try {
-      const savedTodos = localStorage.getItem('todos');
-      return savedTodos ? JSON.parse(savedTodos) : [];
-    } catch (error) {
-      console.error('无法从本地存储加载数据:', error);
-      return [];
-    }
-  });
-  const [inputValue, setInputValue] = useState('');
+  const [collapsed, setCollapsed] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('1');
 
-  // 保存todos到本地存储
-  useEffect(() => {
-    try {
-      localStorage.setItem('todos', JSON.stringify(todos));
-    } catch (error) {
-      console.error('无法保存数据到本地存储:', error);
-    }
-  }, [todos]);
-
-  // 添加新的todo
-  const addTodo = () => {
-    if (inputValue.trim() !== '') {
-      const newTodo: Todo = {
-        id: Date.now(),
-        text: inputValue,
-        completed: false,
-        createdAt: Date.now(),
-        completedAt: null
-      };
-      setTodos([...todos, newTodo]);
-      setInputValue('');
-    }
+  // 渲染TodoList组件
+  const renderTodoList = () => {
+    return <TodoList />;
   };
 
-  // 切换todo的完成状态
-  const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map(todo => 
-        todo.id === id 
-          ? { 
-              ...todo, 
-              completed: !todo.completed, 
-              completedAt: !todo.completed ? Date.now() : null 
-            } 
-          : todo
-      )
-    );
-  };
+  // 渲染其他预留功能组件
+  const renderDashboard = () => (
+    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
+      <Title level={3}>仪表盘</Title>
+      <Text>这里将显示系统概览和统计数据</Text>
+    </div>
+  );
 
-  // 删除todo
-  const deleteTodo = (id: number) => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  };
+  const renderDataAnalysis = () => (
+    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
+      <Title level={3}>数据分析</Title>
+      <Text>这里将显示数据分析图表和报表</Text>
+    </div>
+  );
 
-  const formatDate = (timestamp: number | null) => {
-    if (!timestamp) return '未知';
-    const date = new Date(timestamp);
-    return isNaN(date.getTime()) ? '未知' : date.toLocaleString();
+  const renderUserManagement = () => (
+    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
+      <Title level={3}>用户管理</Title>
+      <Text>这里将显示用户管理界面</Text>
+    </div>
+  );
+
+  const renderSettings = () => (
+    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
+      <Title level={3}>系统设置</Title>
+      <Text>这里将显示系统设置选项</Text>
+    </div>
+  );
+
+  // 根据选中的菜单项渲染对应的内容
+  const renderContent = () => {
+    switch (selectedMenu) {
+      case '1':
+        return renderTodoList();
+      case '2':
+        return renderDashboard();
+      case '3':
+        return renderDataAnalysis();
+      case '4':
+        return renderUserManagement();
+      case '5':
+        return renderSettings();
+      default:
+        return renderTodoList();
+    }
   };
 
   return (
-    <div className="todo-app">
-      <h1>今日代办</h1>
-      <p className="current-date">{new Date().toLocaleDateString()}</p>
-      
-      {/* 添加新任务的表单 */}
-      <div className="todo-form">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="添加新任务..."
-          onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider 
+        trigger={null} 
+        collapsible 
+        collapsed={collapsed}
+        theme="light"
+        style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' }}
+      >
+        <div className="logo" style={{ height: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Title level={4} style={{ margin: 0, color: '#1890ff' }}>
+            {collapsed ? '工具' : '工具集'}
+          </Title>
+        </div>
+        <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          selectedKeys={[selectedMenu]}
+          onClick={e => setSelectedMenu(e.key)}
+          items={[
+            {
+              key: '1',
+              icon: <UnorderedListOutlined />,
+              label: '待办事项',
+            },
+            {
+              key: '2',
+              icon: <AppstoreOutlined />,
+              label: '仪表盘',
+            },
+            {
+              key: '3',
+              icon: <BarChartOutlined />,
+              label: '数据分析',
+            },
+            {
+              key: '4',
+              icon: <UserOutlined />,
+              label: '用户管理',
+            },
+            {
+              key: '5',
+              icon: <SettingOutlined />,
+              label: '系统设置',
+            },
+          ]}
         />
-        <button onClick={addTodo}>添加</button>
-      </div>
-      
-      {/* Todo列表 */}
-      <ul className="todo-list">
-        {todos.map(todo => (
-          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
-            <div className="todo-item">
-              <span 
-                onClick={() => toggleTodo(todo.id)}
-                style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-              >
-                {todo.text}
-              </span>
-              <button onClick={() => deleteTodo(todo.id)}>删除</button>
-            </div>
-            <div className="todo-timestamps">
-              <p>创建于: {formatDate(todo.createdAt)}</p>
-              {todo.completedAt && <p>完成于: {formatDate(todo.completedAt)}</p>}
-            </div>
-          </li>
-        ))}
-      </ul>
-      
-      {/* 任务统计 */}
-      <div className="todo-stats">
-        <p>总任务: {todos.length} | 已完成: {todos.filter(todo => todo.completed).length}</p>
-      </div>
-    </div>
+        <div style={{ position: 'absolute', bottom: '20px', width: '100%', textAlign: 'center' }}>
+          <Button
+            type="primary"
+            shape="circle"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{ fontSize: '16px' }}
+          />
+        </div>
+      </Sider>
+      <Layout>
+        <Header style={{ padding: '0 16px', background: '#fff', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)' }}>
+        </Header>
+        <Content style={{ margin: '24px 16px', overflow: 'initial' }}>
+          {renderContent()}
+        </Content>
+        <Footer style={{ textAlign: 'center', background: '#fff' }}>
+          <Text type="secondary">管理系统 ©{new Date().getFullYear()} Created with Ant Design</Text>
+        </Footer>
+      </Layout>
+    </Layout>
   )
 }
 

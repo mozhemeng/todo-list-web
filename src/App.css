@@ -1,125 +1,92 @@
 #root {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
-  color: #333;
-}
-
-.todo-app {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-h1 {
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.current-date {
-  text-align: center;
-  color: #7f8c8d;
-  margin-bottom: 1.5rem;
-}
-
-.todo-form {
-  display: flex;
-  margin-bottom: 1.5rem;
-}
-
-.todo-form input {
-  flex: 1;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px 0 0 4px;
-  font-size: 1rem;
-}
-
-.todo-form button {
-  padding: 0.8rem 1.5rem;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-
-.todo-form button:hover {
-  background-color: #2980b9;
-}
-
-.todo-list {
-  list-style-type: none;
-  padding: 0;
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
 }
 
-.todo-list li {
+/* 侧边栏样式 */
+.logo {
+  height: 64px;
   display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
-}
-
-.todo-item {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 内容区域样式 */
+.content-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 280px;
+}
+
+/* Todo列表样式 */
+.ant-list-item-meta-description {
   width: 100%;
 }
 
-.todo-timestamps {
-  font-size: 0.8rem;
-  color: #888;
-  margin-top: 0.5rem;
+.ant-checkbox-wrapper {
+  margin-right: 8px;
 }
 
-.todo-timestamps p {
-  margin: 0;
+.ant-list-bordered {
+  background: transparent;
 }
 
-.todo-list li:hover {
-  background-color: #f9f9f9;
+.ant-list-item {
+  background: transparent;
 }
 
-.todo-list li span {
-  flex: 1;
-  cursor: pointer;
-  padding: 0.3rem 0;
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+  .ant-layout-sider {
+    max-width: 200px !important;
+    min-width: 200px !important;
+    width: 200px !important;
+  }
+  
+  .ant-layout-sider.ant-layout-sider-collapsed {
+    max-width: 80px !important;
+    min-width: 80px !important;
+    width: 80px !important;
+  }
+  
+  .content-container {
+    padding: 12px;
+  }
 }
 
-.todo-list li.completed span {
-  color: #7f8c8d;
+/* 菜单项悬停效果 */
+.ant-menu-item:hover {
+  background-color: #e6f7ff;
 }
 
-.todo-list li button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
+/* 页脚样式 */
+.ant-layout-footer {
+  padding: 16px 50px;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 卡片样式 */
+.ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.todo-list li button:hover {
-  background-color: #c0392b;
-}
-
-.todo-stats {
-  margin-top: 1.5rem;
-  text-align: center;
-  color: #7f8c8d;
-  font-size: 0.9rem;
+/* 标签样式 */
+.ant-tag {
+  margin: 0 8px;
+  padding: 0 10px;
+  font-size: 14px;
 }
