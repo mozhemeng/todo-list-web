@@ -3,15 +3,18 @@ import { Layout, Menu, Typography, Button } from 'antd'
 import { 
   UnorderedListOutlined, 
   ClockCircleOutlined, 
-  SettingOutlined, 
-  BarChartOutlined, 
-  UserOutlined,
+  SafetyOutlined, 
+  BranchesOutlined, 
+  FileTextOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined
 } from '@ant-design/icons'
 import './App.css'
 import TodoList from './components/TodoList'
 import TimestampConverter from './components/TimestampConverter'
+import JsonFormatter from './components/JsonFormatter'
+import Base64Converter from './components/Base64Converter'
+import HashCalculator from './components/HashCalculator'
 
 const { Header, Sider, Content, Footer } = Layout;
 const { Title, Text } = Typography;
@@ -26,30 +29,21 @@ function App() {
     return <TodoList />;
   };
 
-  // 渲染其他预留功能组件
+  // 渲染其他功能组件
   const renderTimestampConverter = () => (
     <TimestampConverter />
   );
 
-  const renderDataAnalysis = () => (
-    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
-      <Title level={3}>数据分析</Title>
-      <Text>这里将显示数据分析图表和报表</Text>
-    </div>
+  const renderJsonFormatter = () => (
+    <JsonFormatter />
   );
 
-  const renderUserManagement = () => (
-    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
-      <Title level={3}>用户管理</Title>
-      <Text>这里将显示用户管理界面</Text>
-    </div>
+  const renderBase64Converter = () => (
+    <Base64Converter />
   );
 
-  const renderSettings = () => (
-    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
-      <Title level={3}>系统设置</Title>
-      <Text>这里将显示系统设置选项</Text>
-    </div>
+  const renderHashCalculator = () => (
+    <HashCalculator />
   );
 
   // 根据选中的菜单项渲染对应的组件
@@ -60,11 +54,11 @@ function App() {
       case '2':
         return renderTimestampConverter();
       case '3':
-        return renderDataAnalysis();
+        return renderJsonFormatter();
       case '4':
-        return renderUserManagement();
+        return renderBase64Converter();
       case '5':
-        return renderSettings();
+        return renderHashCalculator();
       default:
         return renderTodoList();
     }
@@ -103,18 +97,18 @@ function App() {
             },
             {
               key: '3',
-              icon: <BarChartOutlined />,
-              label: '数据分析',
+              icon: <BranchesOutlined />,
+              label: 'JSON格式化',
             },
             {
               key: '4',
-              icon: <UserOutlined />,
-              label: '用户管理',
+              icon: <FileTextOutlined />,
+              label: 'Base64编解码',
             },
             {
               key: '5',
-              icon: <SettingOutlined />,
-              label: '系统设置',
+              icon: <SafetyOutlined />,
+              label: '哈希计算',
             },
           ]}
         />
