@@ -228,7 +228,7 @@ const TimestampConverter: React.FC = () => {
             <Text>1. 时间戳长度 &le; 10 位：精确到秒</Text>
             <Text>2. 时间戳长度 &gt; 10 位：精确到毫秒</Text>
             <Text>3. 默认使用东八区（北京时间）</Text>
-            <Text>4. 日期时间格式：YYYY-MM-DD HH:mm:ss.SSSSSS</Text>
+            <Text>4. 日期时间格式：YYYY-MM-DD HH:mm:ss.SSS</Text>
           </Space>
         </Card>
       </div>
