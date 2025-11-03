@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Menu, Typography, Button } from 'antd'
 import { 
   UnorderedListOutlined, 
-  AppstoreOutlined, 
+  ClockCircleOutlined, 
   SettingOutlined, 
   BarChartOutlined, 
   UserOutlined,
@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons'
 import './App.css'
 import TodoList from './components/TodoList'
+import TimestampConverter from './components/TimestampConverter'
 
 const { Header, Sider, Content, Footer } = Layout;
 const { Title, Text } = Typography;
@@ -26,11 +27,8 @@ function App() {
   };
 
   // 渲染其他预留功能组件
-  const renderDashboard = () => (
-    <div style={{ padding: '24px', background: 'white', minHeight: '300px', borderRadius: '4px' }}>
-      <Title level={3}>仪表盘</Title>
-      <Text>这里将显示系统概览和统计数据</Text>
-    </div>
+  const renderTimestampConverter = () => (
+    <TimestampConverter />
   );
 
   const renderDataAnalysis = () => (
@@ -54,13 +52,13 @@ function App() {
     </div>
   );
 
-  // 根据选中的菜单项渲染对应的内容
+  // 根据选中的菜单项渲染对应的组件
   const renderContent = () => {
     switch (selectedMenu) {
       case '1':
         return renderTodoList();
       case '2':
-        return renderDashboard();
+        return renderTimestampConverter();
       case '3':
         return renderDataAnalysis();
       case '4':
@@ -96,12 +94,12 @@ function App() {
             {
               key: '1',
               icon: <UnorderedListOutlined />,
-              label: '待办事项',
+              label: '代办清单',
             },
             {
               key: '2',
-              icon: <AppstoreOutlined />,
-              label: '仪表盘',
+              icon: <ClockCircleOutlined />,
+              label: '时间戳转换',
             },
             {
               key: '3',

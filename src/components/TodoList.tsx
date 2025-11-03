@@ -111,8 +111,8 @@ const TodoList: React.FC = () => {
 
   return (
     <div className="content-container">
-      <div style={{ background: 'white', padding: '20px', borderRadius: '4px', maxWidth: '66%', margin: '0 auto' }}>
-        <Title level={2} style={{ margin: '16px 0', textAlign: 'center' }}>今日代办</Title>
+      <div style={{ background: 'white', padding: '20px', borderRadius: '4px', maxWidth: '800px', margin: '0 auto' }}>
+        <Title level={2} style={{ margin: '16px 0', textAlign: 'center' }}>代办清单</Title>
         <Text type="secondary" style={{ display: 'block', textAlign: 'center', marginBottom: '20px' }}>
           {new Date().toLocaleDateString()}
         </Text>
